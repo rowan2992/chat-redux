@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-// import {  } from '../actions';
+import { emojify } from 'react-emojione';
+
+function strToRGB(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i += 1) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const c = (hash & 0x00FFFFFF)
+    .toString(16)
+    .toUpperCase();
+  return `#${"00000".substring(0, 6 - c.length)}${c}`;
+}
 
 class Message extends Component {
 
@@ -10,8 +19,10 @@ class Message extends Component {
     const time = new Date(created_at).toLocaleTimeString();
     return (
       <div className="message-container">
-        <i className="author">{author}</i>
-        <p>{content}</p>
+        <i className="author">
+          <span style={{ color: strToRGB(author) }}>{author}</span>
+        </i>
+        <p>{emojify(content)}</p>
         <small>{time}</small>
       </div>
     );

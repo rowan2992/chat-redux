@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { createMessage } from '../actions';
+import { createMessage, fetchMessages } from '../actions';
 
 class MessageForm extends Component {
   constructor(props) {
@@ -10,8 +10,13 @@ class MessageForm extends Component {
     this.state = { value: '' };
   }
 
+  componentDidMount() {
+    this.messageBox.focus();
+  }
+
   handleChange = (event) => {
     this.setState({ value: event.target.value });
+    this.props.fetchMessages(this.props.selectedChannel);
   }
 
   handleSubmit = (event) => {
@@ -26,6 +31,7 @@ class MessageForm extends Component {
       <div className="form">
         <form onSubmit={this.handleSubmit} className="channel-editor">
           <input
+            ref={(input) => { this.messageBox = input; }}
             type="text"
             value={this.state.value}
             className="form-control"
@@ -39,7 +45,7 @@ class MessageForm extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ createMessage }, dispatch);
+  return bindActionCreators({ createMessage, fetchMessages }, dispatch);
 }
 
 function mapReduxStateToProps(reduxState) {

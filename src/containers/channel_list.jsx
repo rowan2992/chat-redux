@@ -2,61 +2,46 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Message from '../components/message';
-import MessageForm from './message_form';
-import { fetchMessages } from '../actions';
+import { selectChannel, fetchMessages } from '../actions';
 
-class MessageList extends Component {
+class ChannelList extends Component {
 
-  componentWillMount() {
-    this.fetchMessages;
+  handleClick = (channel) => {
+    this.props.selectChannel(channel);
+    this.props.fetchMessages(channel);
   }
 
-  componentDidMount() {
-    this.refresher = setInterval(this.fetchMessages, 5000);
-  }
-
-  componentDidUpdate() {
-    this.list.scrollTop = this.list.scrollHeight;
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.refresher);
-  }
-
-
-  fetchMessages = () => {
-    this.props.fetchMessages(this.props.selectedChannel);
-  }
-  
   render() {
     return (
-      <div className="channel-container">
-        <div className="channel-content" ref={(list) => { this.list = list; }}>
-          {
-            this.props.messages.map((message) => {
-              return <Message key={message.created_at} message={message} />
-            })
-          }
-        </div>
-        <MessageForm />
+      <div className="channels-container">
+        <ul>
+          {this.props.channels.map((channel) => {
+            return (
+              <li
+                key={channel}
+                className={channel === this.props.selectedChannel ? "active" : null}
+                
+                onClick={() => this.handleClick(channel)}
+              >
+                #{channel}
+              </li>
+            )
+          })}
+        </ul>
       </div>
     );
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    { fetchMessages: fetchMessages },
-    dispatch
-  );
+  return bindActionCreators({ selectChannel, fetchMessages }, dispatch);
 }
-
 
 function mapReduxStateToProps(reduxState) {
   return {
-    channels: reduxState.channels
+    channels: reduxState.channels,
+    selectedChannel: reduxState.selectedChannel
   }
 }
 
-export default connect(mapReduxStateToProps, mapDispatchToProps)(MessageList);
+export default connect(mapReduxStateToProps, mapDispatchToProps)(ChannelList);

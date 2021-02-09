@@ -1,5 +1,9 @@
 // TODO: add and export your own actions
 
+export const FETCH_MESSAGES = 'FETCH_MESSAGES';
+export const CREATE_MESSAGE = 'CREATE_MESSAGE';
+export const CHANNEL_SELECTED = 'CHANNEL_SELECTED';
+
 export function fetchMessages(channel) {
   // TODO Simulate API
   const promise = fetch(`https://wagon-chat.herokuapp.com/${channel}/messages`)
@@ -9,7 +13,7 @@ export function fetchMessages(channel) {
     });
   
   return {
-    type: 'FETCH_MESSAGES',
+    type: FETCH_MESSAGES,
     payload: promise
   }
 }
@@ -29,8 +33,15 @@ export function createMessage(channel, author, content) {
   console.log(promise);
   
   return {
-    type: 'CREATE_MESSAGE',
+    type: CREATE_MESSAGE,
     payload: promise
   }
+}
+
+export function selectChannel(channel) {
+  return {
+    type: CHANNEL_SELECTED,
+    payload: channel
+  };
 }
 

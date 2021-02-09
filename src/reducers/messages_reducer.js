@@ -1,17 +1,22 @@
+import { FETCH_MESSAGES, CREATE_MESSAGE } from '../actions';
+
 const messagesReducer = (state, action) => {
   if (state === undefined) {
     return [];
   }
   switch (action.type) {
-    case 'FETCH_MESSAGES':
+    case FETCH_MESSAGES: {
       return action.payload;
-    case 'CREATE_MESSAGE':
+    }
+    case CREATE_MESSAGE: {
       const messages = state; 
       let newMessage = action.payload;
       messages.push(newMessage);
       return messages;
-    default:
+    }
+    default: {
       return state;
+    }
   }
 }
 

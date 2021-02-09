@@ -8,8 +8,6 @@ import { logger } from 'redux-logger';
 import reduxPromise from 'redux-promise'; 
 
 import messagesReducer from './reducers/messages_reducer';
-import channelsReducer from './reducers/channels_reducer';
-import currentUserReducer from './reducers/current_user_reducer';
 import selectedChannelReducer from './reducers/selected_channel_reducer';
 
 // internal modules
@@ -33,10 +31,12 @@ const initialState = {
   selectedChannel: 'general'
 };
 
+const identityReducer = (state = null) => state;
+
 const reducers = combineReducers({
   messages: messagesReducer,
-  channels: channelsReducer,
-  currentUser: currentUserReducer,
+  channels: identityReducer,
+  currentUser: identityReducer,
   selectedChannel: selectedChannelReducer
 });
 
