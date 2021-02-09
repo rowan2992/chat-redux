@@ -3,7 +3,10 @@ import MessageList from '../containers/message_list'
 
 const App = () => {
   return (
-    <div className="app">
+    <div className="messaging-wrapper">
+      <div className="logo-container">
+        
+      </div>
       <MessageList />
     </div>
   );

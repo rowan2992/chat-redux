@@ -55,8 +55,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapReduxStateToProps(reduxState) {
   return {
-    messages: reduxState.messages,
-    selectedChannel: reduxState.selectedChannel
+    channels: reduxState.channels
   }
 }
 

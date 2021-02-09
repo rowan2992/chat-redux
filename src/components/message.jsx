@@ -6,16 +6,17 @@ import { connect } from 'react-redux';
 class Message extends Component {
 
   render() {
+    const { created_at, content, author } = this.props.message;
+    const time = new Date(created_at).toLocaleTimeString();
     return (
-      <div className="message">{}</div>
+      <div className="message-container">
+        <i className="author">{author}</i>
+        <p>{content}</p>
+        <small>{time}</small>
+      </div>
     );
   }
 }
 
-function mapReduxStateToProps(reduxState) {
-  return {
-    content: reduxState.content
-  }
-}
 
-export default connect(mapReduxStateToProps, null)(Message);
+export default (Message);

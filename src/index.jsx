@@ -34,20 +34,18 @@ const initialState = {
 };
 
 const reducers = combineReducers({
-  messages: messagesReducer(initialState.messages),
-  // channels: channelsReducer(initialState.channels),
-  // currentUser: currentUserReducer(initialState.currentUser),
-  // selectedChannel: selectedChannelReducer(initialState.selectedChannel)
+  messages: messagesReducer,
+  channels: channelsReducer,
+  currentUser: currentUserReducer,
+  selectedChannel: selectedChannelReducer
 });
-
-// console.log(initialState);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
 const middlewares = composeEnhancers(applyMiddleware(reduxPromise, logger)); 
 
 // render an instance of the component in the DOM
 ReactDOM.render(
-  <Provider store={createStore(reducers, {}, middlewares)}>
+  <Provider store={createStore(reducers, initialState, middlewares)}>
     <App />
   </Provider>,
   document.getElementById('root')
