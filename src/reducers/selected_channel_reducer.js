@@ -15,4 +15,3 @@ const selectedChannelReducer = (state, action) => {
 }
 
 export default selectedChannelReducer;
-
