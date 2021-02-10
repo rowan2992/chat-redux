@@ -24,7 +24,6 @@ class MessageList extends Component {
     clearInterval(this.refresher);
   }
 
-
   fetchMessages = () => {
     this.props.fetchMessages(this.props.selectedChannel);
   }
